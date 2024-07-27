@@ -55,7 +55,31 @@
     width: 80px;
     height: 50px;
 }
-.slide-logo:hover{
-    animation-play-state: running;
 
-}
+/* .chart{
+    border-right: 1px rgb(202, 230, 41) solid;
+} */
+ .cross{
+    color: pink;
+    border: 1px yellow solid;
+    padding: 5px;
+    border-radius: 10px;
+ }
+ .cross:hover{
+    background-color: azure;
+    color: black;
+    font-weight: 600;
+ }
+ .info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ }
+ .logo{
+    width: 200px;
+ }
+ .info > p{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: gold;
+ }

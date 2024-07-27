@@ -31,7 +31,7 @@ const coinReduser=(state=initialValue,action:CoinAction)=>{
         case Types.SET_COINS:
             return 1;
         case Types.GET_COINS:
-            return [...action.payload]
+            return {...state,coins:[...action.payload]}
         default:
             return state;
     }

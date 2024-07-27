@@ -34,8 +34,8 @@ const showCard=async(id:string)=>{
       <div className='bg-gray-900  rounded-md shadow-xl text-center  pt-5 font-semibold'>
         <div className='flex justify-start'>
         <Link id='coin' className='bg-gray-900 p-2 gap-x-2 ml-3 rounded-lg shadow-2xl mb-3' to='/'>Crypto</Link>
-        <Link className='bg-gray-900 p-2 gap-x-2 ml-3 rounded-lg shadow-2xl mb-3' to='/stocks'>Stocks</Link>
-      </div>
+        <Link className='bg-gray-900 p-2 gap-x-2 ml-3 rounded-lg shadow-2xl mb-3' to='/stocks/list'>Stocks</Link>
+        </div>
       <hr/>
       <div className="table w-full ... ">
         <div className="table-header-group ...">
@@ -49,12 +49,12 @@ const showCard=async(id:string)=>{
         </div>
         {/* <div className={showModal}></div> */}
 
-        {coins !== null && coins.slice(0,20).map((coin:Coins,index:number=0)=>{
+        {coins && coins.map((coin:Coins,index:number=0)=>{
           return(<>
           <hr/>
-          {model ? (<><ModelPage id={id} setModel={setModel}/></>):''}
+          {model ? (<><ModelPage id={id} rate={coin.rate} setModel={setModel}/></>):''}
 
-            <div id={coin.code} onClick={() => showCard(`${coin.code}`)} key={index} className="tbody table-row ... p-5 m-5 bg-gray-800">
+            <div id={coin.code} onClick={() => showCard(coin.code)} key={index} className="tbody table-row ... p-5 m-5 bg-gray-800">
               <div className="table-cell ... p-7">{index+1}</div>
               <div className="table-cell ... code">{coin.code}</div>
               <div className="table-cell ..."><img className='w-1/5 -my-4 ' src={require(`../assets/${coin.code.toLowerCase()}.webp`)} alt=''/></div>

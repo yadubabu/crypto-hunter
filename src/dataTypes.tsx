@@ -19,6 +19,7 @@ export interface SingleCoin{
     categories:[string],
     circulatingSupply:number,
     code:string,
+    color:string,
     exchanges:number,
     history:[{
         cap:number,
@@ -66,3 +67,16 @@ export interface CoinHistory{
         volume:number,
     
 }
+export interface Stocks {
+    depth:number,
+    name:string,
+    volume:number,
+    markets:number,
+    askTotal:number,
+    bidTotal:number,
+    code:string,
+    png64:string,
+    png128:string,
+    webp64:string,
+    webp128:string
+  }

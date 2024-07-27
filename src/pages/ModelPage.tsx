@@ -4,23 +4,27 @@ import { fetchSingleData } from '../services/apiServices';
 import './style.css'
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { useSelector } from 'react-redux';
-import { AppStore } from '../redux/store';
-import { win32 } from 'path/win32';
+import { FaFile } from "react-icons/fa6";
+import { TbWorldWww } from "react-icons/tb";
+import { TbHexagonLetterXFilled } from "react-icons/tb";
+import { FaRedditAlien } from "react-icons/fa6";
+import { FaFacebookF } from "react-icons/fa";
+import { FaDiscord } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa6";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 type Props = {
     id:string;
     setModel: Dispatch<SetStateAction<boolean>>;
-   
+   rate:number
 }
 type Time={
   start:number,
   end:number
 }
 
-function ModelPage({id,setModel}: Props) {
+function ModelPage({id,setModel,rate}: Props) {
     const [data,setData]=useState<SingleCoin|any>()
     const [key,setKey]=useState(1)
     const [time,setTime]=useState<Time>({
@@ -41,8 +45,8 @@ function ModelPage({id,setModel}: Props) {
             })
           )         
     }
-    console.log(data?.history);
-    
+   console.log(data);
+   
     useEffect(()=>{
       fetchSingle()
     },[id])
@@ -51,8 +55,9 @@ function ModelPage({id,setModel}: Props) {
     <div className='model flex flex-col'>
         <div>
         <div className='flex justify-between'>
-            <span className='text-3xl font-extrabold'>{id}</span>
-            <button onClick={()=>setModel(false)}>X</button>
+            <span className={`text-3xl font-extrabold text-${data?.color}-700`}>{data?.code}</span>
+           
+            <button className='cross text-gray-400 mx-2' onClick={()=>setModel(false)}>X</button>
         </div>
         <div>
           <Line data = {{labels: getDate,
@@ -103,7 +108,11 @@ function ModelPage({id,setModel}: Props) {
       },
       title: {
         display: true,
-        text: `${id} Info`,
+        text: `${id} Prices`,
+        font:{
+          size:18,
+          weight:'bold',
+        }
       },
  
       
@@ -155,9 +164,74 @@ function ModelPage({id,setModel}: Props) {
             }}>Year</button>
         </div> 
         </div>
-        <div>
-            Coin Info
+        <hr/>
+        <div className='info flex flex-col w-full max-h-full'>
+        <img className='logo' src={require(`../assets/${id.toLowerCase()}.webp`)} alt=''/>
+        <p style={{color:`${data?.color}`}} className='text-4xl font-bold'>{data?.name}</p>
+        <p className='text-2xl text-white'>{rate.toFixed(3)}</p>
         </div>
+        <hr/>
+        {data && (
+          <div>
+          <div className='flex justify-between'>
+            <div className='flex p-3'>
+              <label className='mx-1'>Age:</label>
+              <p className='mx-1'>{data.age}</p>
+            </div>
+            <div className='flex p-3'>
+              <label className='mx-1'>Rank:</label>
+              <p className='mx-1'>{data.rank}</p>
+            </div>
+          </div>
+          <div className='flex justify-between'>
+            <div className='flex p-3'>
+              <label className='mx-1'>Exchanges:</label>
+              <p className='mx-1'>{data.exchanges}</p>
+            </div>
+            <div className='flex p-3'>
+              <label className='mx-1'>Markets:</label>
+              <p className='mx-1'>{data.markets}</p>
+            </div>
+          </div>
+          <div className='flex justify-between'>
+            <div className='flex p-3'>
+                <label className='mx-1'>CirculatingSupply:</label>
+                <p className='mx-1'>{data.circulatingSupply}</p>
+            </div>
+           
+            <div className='flex p-3'>
+              <label className='mx-1'>TotalSupply :</label>
+              <p className='mx-1'>{data.totalSupply}</p>
+            </div>
+          </div>
+        
+          <hr/>
+            <div className='flex justify-center  cursor-pointer m-2 p-2 '>
+                  <a href={data.links.discord} className='-mt-1'>
+                      <span className='mx-2 hover:text-red-600'>{data.symbol}</span>
+                  </a>
+                  <a href={data.links.whitepaper}>
+                      <FaFile className='mx-2 hover:text-red-600'/>
+                  </a>
+                  <a href={data.links.website}>
+                      <TbWorldWww className='mx-2 hover:text-red-600'/>   
+                  </a>
+                  
+                  <a href={data.links.reddit}>
+                  <FaRedditAlien className='mx-2 hover:text-red-600'/>
+                  </a>
+                  <a href='#'>
+                  <FaFacebookF className='mx-2 hover:text-red-600'/>   
+                  </a>
+                  <a href='#'>
+                  <FaDiscord className='mx-2 hover:text-red-600'/>   
+                  </a>
+                  <a href='#'>
+                  <FaGithub className='mx-2 hover:text-red-600'/>
+                  </a>
+            </div>        
+          </div>
+        )}
     </div>
   )
 }

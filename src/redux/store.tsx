@@ -1,11 +1,12 @@
 import { applyMiddleware, compose, createStore } from "redux";
 import reducers from "./reducers";
-import { Coins } from "../dataTypes";
+import { Coins, Stocks } from "../dataTypes";
 import { thunk } from "redux-thunk";
 
 export interface AppStore{
     val:number,
     coins:Coins[],
+    stocks:Stocks[],
 }
 
 declare global {
