@@ -11,35 +11,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppStore } from './redux/store';
 import { Dispatch } from 'redux';
 import { getCoinActions, setCoinActions } from './redux/actions/coinActions';
-import { getcoinsApi } from './config/api';
-
+import { addcoinsApi, getcoinsApi } from './config/api';
+import { coinDepend } from './redux/actions/coinActions';
+import CoinsList from './pages/CoinsList';
 
 const App=()=> {
+  const val=useSelector<AppStore,number>(state=>state.val)
   const coins=useSelector<AppStore,Coins[]>(state=>state.coins)
+
   const dispatch:Dispatch<any> =useDispatch();
-  const [data,setData]=useState<Coins[]>()
+  const [data,setData]=useState<Coins[] >([])
   useEffect(() => {
-      const interval = setInterval( () => {
-     fetchLiveData().then(()=>dispatch(getCoinActions))
+      const interval = setInterval(async() => {
+        localStorage.removeItem('coins');
+        localStorage.setItem('coins',JSON.stringify(await fetchLiveData()))
+      
+        dispatch(coinDepend(JSON.parse(localStorage.getItem('coins') || "{}")[0].rate));
+      
       }, 2000); // Reloads the page every 2 seconds
        return () => clearInterval(interval); // Cleanup the interval on component unmount
       }, []);
-  // useEffect(()=>{
-  //    axios.get(getcoinsApi).then((res)=>{
-  //    console.log(res.data);
-     
-  // })
-
-  // },[])
-      // useEffect(() => {
-      //   const interval = setInterval(async() => {
-      //  if(JSON.parse(localStorage.getItem('coins') || "{}") ){
-      //   dispatch(getCoinActions)
-      //  }
-      //   }, 2000); // Reloads the page every 2 seconds
-      //    return () => clearInterval(interval); // Cleanup the interval on component unmount
-      //   }, []);
-      console.log(coins);
+      
       
   return (
     <div className='App'>
@@ -47,6 +39,8 @@ const App=()=> {
         <Header/>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
+        <Route path='/coins/list' element={<CoinsList/>}/>
+
       </Routes>
       </Router>
     </div>

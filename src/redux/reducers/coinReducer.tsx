@@ -26,8 +26,34 @@ export interface CoinAction{
 }
 
 const coinReduser=(state=initialValue,action:CoinAction)=>{
-    console.log(action.payload);
     
+    switch(action.type){
+        case Types.SET_COINS:
+            return 1;
+        case Types.GET_COINS:
+            return [...action.payload]
+        default:
+            return state;
+    }
+    // if(action.type===Types.SET_DEPEND){
+    //     return action.payload
+    // }
+    // else if(action.type===Types.SET_COINS){
+    //      return action.payload
+    //      }
+    // else {
+    //     return state
+    // }
+    // if(action.type===Types.SET_COINS){
+    //     return action.payload
+    // }
+    // else
+    //  if(action.type===Types.GET_COINS){
+    //     return [...action.payload]
+    // }
+    // else{
+    //     return state;
+    // }
     // switch(action.type){
     //     case Types.SET_COINS:
     //         return state;
@@ -36,11 +62,11 @@ const coinReduser=(state=initialValue,action:CoinAction)=>{
     //     default:
     //         return state;
     // }
-    if(action.type===Types.GET_COINS){
-        return [...action.payload]
-    }
-    else{
-        return state;
-    }
+    // if(action.type===Types.GET_COINS){
+    //     return [...action.payload]
+    // }
+    // else{
+    //     return state;
+    // }
 }
 export default coinReduser;

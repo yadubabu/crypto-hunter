@@ -4,7 +4,7 @@ import { Coins } from "../dataTypes";
 import { thunk } from "redux-thunk";
 
 export interface AppStore{
-    
+    val:number,
     coins:Coins[],
 }
 

@@ -22,18 +22,31 @@ export const fetchLiveData= async()=>{
       }),
     }).then(async(res)=>(await res.json()))
     .catch(err=>console.log(err));
-    localStorage.removeItem('coins')
-    localStorage.setItem('coins',JSON.stringify(liveData))
-   
+    
+    return liveData;
+ 
   }
 
- 
-    // alert('hai')
-    // await axios.get(getcoinsApi).then((res)=>{
-    //     // console.log(res.data);
-        
-    //     return async(dispatch: Dispatch) =>{
-    //         dispatch(coinActions(await res.data))
-    //     }
-    // })
+  export const fetchSingleData=async(id:string,start:number,end:number)=>{
   
+    const single=await fetch(new Request("https://api.livecoinwatch.com/coins/single/history"), {
+      method: "POST",
+      headers: new Headers({
+        "content-type": "application/json",
+        "x-api-key": apiKey,
+      }),
+      body: JSON.stringify({
+        currency: "USD",
+        code: id,
+        start: start,
+        end: end,
+        meta: true,
+      }),
+    }).then((res)=>res.json()).catch(err=>console.log(err))
+    console.log(await single);
+    
+    return await single;
+    
+  }
+ 
+ 

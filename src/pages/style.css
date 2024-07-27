@@ -1,0 +1,61 @@
+.model{
+    position: absolute;
+    top:0;
+    left:0;
+    border: 1px solid lightgray;
+    width: 90vw;
+    height: max-content;
+    background-color: black;
+    color: wheat;
+    opacity: 0.9;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow:0cqmax;
+    z-index: 999;
+}
+.btn{
+    border-radius: 10px;
+    font-weight: 600;
+}
+.banner{
+    height: 268px;
+    border-radius: 10px;
+    background-image: url('../../public/images/bg.webp');
+    background-repeat: no-repeat;
+    background-size:cover ;
+    box-shadow: white;
+}
+.table-cell{
+    border-bottom: 1px rgb(198, 197, 197) solid;
+    font-weight: 600;
+    color: rgb(239, 240, 241);
+}
+.table{
+    color: black;
+}
+/* .slide-logo{
+    float: inline-end;
+} */
+@keyframes slider {
+    from{
+        transform: translateX(0) ;
+    }
+    to{
+        transform: translateX(-1650px) ;
+    }
+}
+.slide-logo{
+    animation:slider 45s  infinite linear;
+    cursor: pointer;
+    margin: 50px;
+}
+.imag{
+    width: 80px;
+    height: 50px;
+}
+.slide-logo:hover{
+    animation-play-state: running;
+
+}
